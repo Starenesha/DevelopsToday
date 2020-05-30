@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from .views import home, Comments, upvote
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
     path('api/v1/news/', include('news.urls')),
     path('api/v1/auth/', include('rest_framework.urls')),
+     path('like/<int:id>', upvote),
+    path('comment/<int:id>', Comments.as_view())
 ]

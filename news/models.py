@@ -40,3 +40,6 @@ class Comment(models.Model):
     class Meta:
         db_table = 'comment'
         ordering = ['-creation_date']
+
+    def __str__(self):
+        return self.content

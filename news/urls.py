@@ -14,5 +14,8 @@ urlpatterns = [
     path('comments/', CommentApiView.as_view()),
     path('comments/create', CommentCreateApiView.as_view()),
     path('comments/update/<int:pk>', CommentUpdateApiView.as_view()),
+
+
+
 ]
 
