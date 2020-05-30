@@ -24,6 +24,6 @@ urlpatterns = [
     path('', home, name='home'),
     path('api/v1/news/', include('news.urls')),
     path('api/v1/auth/', include('rest_framework.urls')),
-     path('like/<int:id>', upvote),
+    path('like/<int:id>', upvote),
     path('comment/<int:id>', Comments.as_view())
 ]
