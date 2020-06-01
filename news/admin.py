@@ -10,10 +10,10 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Comment)
-class PostAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Author)
-class PostAdmin(admin.ModelAdmin):
+class AuthorAdmin(admin.ModelAdmin):
     pass

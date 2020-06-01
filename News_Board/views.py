@@ -34,20 +34,16 @@ class Comments(View):
 
     def get(self, request, id):
         comments = self.model.objects.all().filter(post=id)
-        return render(request, self.template, context={'comments': comments, 'id':id, 'authors': self.authors})
+        ctx = {'comments': comments, 'id': id, 'authors': self.authors}
+        return render(request, self.template, ctx)
 
     def post(self, request, id):
-        post_obj = get_object_or_404(Post, id=id)
+        # post_obj = get_object_or_404(Post, id=id)
         form = self.form_model(request.POST or None)
-
         comments = self.model.objects.all().filter(post=id)
-        print(form.errors)
+
         if form.is_valid():
-            # new_obj = form.save()
-            data = form.cleaned_data
-            form.save(commit=False)
             form.save()
             return render(request, self.template, context={'comments': comments})
         else:
-            return render(request, self.template, context={'comments': comments, 'id':id, 'form': form, 'authors': self.authors})
-
+            return render(request, self.template, context={'comments': comments, 'id': id, 'form': form, 'authors': self.authors})

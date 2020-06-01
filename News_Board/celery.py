@@ -16,7 +16,3 @@ app.conf.CELERYBEAT_SCHEDULE = {
         "schedule": crontab(hour="*/24"),
     }
 }
-
-
-
-

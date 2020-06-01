@@ -1,9 +1,6 @@
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework import routers
-from .views import PostCreateApiView, PostsApiView, PostUpdateApiView, CommentCreateApiView, \
-    CommentApiView, CommentUpdateApiView
-
+from django.urls import path
+from .views import PostCreateApiView, PostsApiView, PostUpdateApiView,  \
+    CommentCreateApiView, CommentApiView, CommentUpdateApiView
 
 app_name = "news"
 
@@ -14,8 +11,4 @@ urlpatterns = [
     path('comments/', CommentApiView.as_view()),
     path('comments/create', CommentCreateApiView.as_view()),
     path('comments/update/<int:pk>', CommentUpdateApiView.as_view()),
-
-
-
 ]
-
