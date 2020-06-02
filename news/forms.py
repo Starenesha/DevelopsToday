@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Author
 
 
 class CommentForm(forms.ModelForm):
@@ -8,7 +8,10 @@ class CommentForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'author': forms.HiddenInput(attrs={'class': 'form-control'}),
-            'content': forms.TextInput(attrs={'class': 'form-control'}),
-            'post': forms.TextInput(attrs={'class': 'form-control'}),
+            'author': forms.CheckboxSelectMultiple(),
+            'content': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['author'] = forms.ModelChoiceField(queryset=Author.objects.all())

@@ -21,18 +21,14 @@
             <div class="card my-md-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
-                    {#                    <form method="post" action="/api/v1/news/comments/create">#}
                     <form method="post" action="/comment/{{ id }}">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="author">Author:</label>
 
-                            <select name="author" id="author">
-                                {% for author in authors %}
-                                    <option value="{{ author }}">{{ author }}</option>
-                                {% endfor %}
+                            <select name="author" id="author" >
+                                <option value={{ form.author }}</option>
                             </select>
-
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Comment</label>

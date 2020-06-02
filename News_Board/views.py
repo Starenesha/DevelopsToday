@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.views import View
 
-from news.models import Post, Comment, Author
+from news.models import Post, Comment
 
 from news.forms import CommentForm
 
@@ -29,21 +29,25 @@ class Comments(View):
 
     model = Comment
     form_model = CommentForm
-    authors = Author.objects.all()
     template = "comments.html"
 
     def get(self, request, id):
         comments = self.model.objects.all().filter(post=id)
-        ctx = {'comments': comments, 'id': id, 'authors': self.authors}
+        ctx = {'comments': comments, 'id': id, 'form': self.form_model}
         return render(request, self.template, ctx)
 
     def post(self, request, id):
-        # post_obj = get_object_or_404(Post, id=id)
         form = self.form_model(request.POST or None)
         comments = self.model.objects.all().filter(post=id)
-
         if form.is_valid():
-            form.save()
-            return render(request, self.template, context={'comments': comments})
+            comment = form.save()
+            comment.refresh_from_db()
+            comment.author = form.cleaned_data.get('author')
+            comment.content = form.cleaned_data.get('content')
+            comment.post = form.cleaned_data.get('post')
+            comment.save()
+            ctx = {'comments': comments, 'id': id, 'form': form}
+            return render(request, self.template, ctx)
         else:
-            return render(request, self.template, context={'comments': comments, 'id': id, 'form': form, 'authors': self.authors})
+            ctx = {'comments': comments, 'id': id, 'form': form}
+            return render(request, self.template, ctx)
