@@ -1,5 +1,5 @@
 <h3> DevelopsToday test task </h3>
-Task deploing on next heroku: https://news-board-app.herokuapp.com/
+Task deploing on next heroku: https://news-board-app.herokuapp.com/ </br>
 api: https://news-board-app.herokuapp.com/api/v1/news/posts/
 
 <h3> How to deploy a project: </h3>
